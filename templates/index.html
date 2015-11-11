@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html">
+    <head>
+        <title>demo</title>
+        <meta charset="utf-8">
+        <link href="../static/css/bootstrap.css" rel="stylesheet">
+        <script type="text/javascript" src="../static/js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="../static/js/modal.js"></script>
+        <script type="text/javascript" src="../static/ueditor/ueditor.config.js"></script>
+        <script type="text/javascript" src="../static/ueditor/ueditor.all.js"></script>
+        <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+        <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+        <script type="text/javascript" charset="utf-8" src="../static/ueditor/lang/zh-cn/zh-cn.js"></script>
+        <style>
+            .modal-scrollable{
+                /*position:fixed;*/
+                /*overflow: auto;*/
+                /*left:0;*/
+                /*right:0;*/
+                /*bottom:0;*/
+                /*top:0;*/
+            }
+            .edit-form {
+                width: 750px;
+                margin: 0 auto;
+                margin-top:100px;
+            }
+            .modal{
+                /*width:410px;*/
+                /*outline: none;*/
+                /*position: absolute;*/
+                /*margin-top: 0;*/
+                /*overflow: visible;*/
+                /*outline: none;*/
+                /*padding: 0;*/
+                /*margin-left: -250px;*/
+                /*background-color: #ffffff;*/
+                /*border: 1px solid #999999;*/
+                /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+                /*border-radius: 6px;*/
+                /*-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);*/
+                /*box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);*/
+                /*background-clip: padding-box;*/
+                /*border: 5px solid #fff;*/
+                /*border-top-left-radius: 5px!important;*/
+                /*border-top-right-radius: 5px!important;*/
+                /*z-index: 10050 !important;*/
+                /*outline: none !important;*/
+                /*width:410px;*/
+            }
+            .modal-dialog {
+                width: 410px;
+            }
+            .modal-header{
+                border-bottom: 1px solid #ddd;
+                padding: 17px 21px;
+                font-size: 16px;
+                color: #333;
+                min-height: 16.428571429px;
+            }
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background: rgba(121,121,121,.6);
+            }
+            ::-webkit-scrollbar-track {
+                background-color: #fff;
+            }
+            .modal-title {
+                margin: 0;
+                line-height: 1.428571429;
+            }
+            .modal-body {
+                padding:0;
+                /*max-height:none;*/
+                /*overflow:visible;*/
+            }
+            .modal-title small {
+                color: red;
+            }
+            .form-content-wrap {
+                border: 1px solid #ddd;
+                min-height: 500px;
+                margin-bottom: 10px;
+                position: relative;
+            }
+            .edit-form #edui1 {
+                border: 0;
+            }
+            .form-content-wrap h4 {
+                margin: 0;
+                background-color: #f4f5f9;
+                height: 50px;
+                padding: 11px 5px 5px;
+                border-bottom: 1px solid #ddd;
+            }
+            .form-content-wrap h4 .btn-clear {
+                font-weight: 700;
+                padding: 5px 16px;
+            }
+            .btn {
+                border-width: 0;
+                padding: 5px 23px;
+                font-size: 14px;
+                outline: none !important;
+                -webkit-box-shadow: none !important;
+                -moz-box-shadow: none !important;
+                box-shadow: none !important;
+                -webkit-border-radius: 4px !important;
+                -moz-border-radius: 4px !important;
+                border-radius: 4px !important;
+                text-shadow: none;
+            }
+            .modal-footer {
+                background-color: #f9f9f9;
+                border-top: 1px solid #ddd;
+                padding: 11px 20px 11px;
+                margin-top: 15px;
+                text-align: right;
+            }
+            /*.modal-scrollable {*/
+                /*overflow-y: auto;*/
+                 /*position: fixed;*/
+                 /*top: 0;*/
+                 /*bottom: 0;*/
+                 /*left: 0;*/
+                 /*right: 0;*/
+                 /*overflow: auto;*/
+            /*}*/
+            .btn-primary {
+                border-width: 1px;
+                background-color: #47c68c;
+                border-color: #47c68c;
+                color: #fff;
+                border-radius: 2px!important;
+                -webkit-border-radius: 2px!important;
+                -moz-border-radius: 2px!important;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Modal -->
+        <!--<div class="modal-scrollable" style="z-index: 10051;">-->
+            <!---->
+        <!--</div>-->
+
+        <div class="modal fade in" id="preview1" tabindex="-1" role="dialog" aria-labelledby="previewLabel">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">预览<small>（效果仅供参看，实际效果以微信发送的图文为准）</small></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0);" class="btn btn-primary">确定</a>
+            </div>
+        </div>
+        <div class="edit-form">
+            <div class="form-content-wrap">
+                <h4 data-reactid=".0.1.2.4.0"><span class="btn btn-clear" data-target="#preview" data-toggle="modal">预览</span>
+                </h4>
+                <script id="editor" type="text/plain"></script>
+            </div>
+        </div>
+
+        <div id="preview" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index:111111;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">预览<small>（效果仅供参看，实际效果以微信发送的图文为准）</small></h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </body>
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor', {
+            initialFrameHeight: 400,
+            wordCount: false,
+            elementPathEnabled: false,
+            focus: true,
+            toolbars: [[
+                'fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', '|',
+                'autotypeset', 'blockquote', 'fontsize', 'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                'simpleupload', 'insertimage', 'emotion', 'insertvideo', 'music', '|',
+                'searchreplace'
+            ]],
+            serverUrl: '/upload/'
+        });
+        ue.addListener('ready', function() {
+            ue.setContent(moban1);
+            this.focus();
+        });
+
+//        function reposition() {
+//            var modal = $(this),
+//                dialog = modal.find('.modal-dialog');
+//            modal.css('display', 'block');
+//
+//            // Dividing by two centers the modal exactly, but dividing by three
+//            // or four works better for larger screens.
+//            dialog.css("margin-top", Math.max(0, ($(window).height() - dialog.height()) / 2));
+//        }
+//        // Reposition when a modal is shown
+//        $('.modal').on('show.bs.modal', reposition);
+//        // Reposition when the window is resized
+//        $(window).on('resize', function() {
+//            $('.modal:visible').each(reposition);
+//        });
+
+        var moban1 =
+            '<p>' +
+                '<img src="http://7xj2qd.com2.z0.glb.qiniucdn.com/image1.png">' +
+            '</p>' +
+            '<p style="font-size:22px; color:#7a7a7a; margin-top:70px;">文|查尔斯</p>' +
+            '<p style="margin-top:26px; font-size:22px; color:#7a7a7a;">本文由高冷联盟原创，转载请注明来源基友之家，封面图源自百度图片</p>' +
+            '<p style="width:90%; border-top:2px #333 solid; margin: 70px auto; padding-top:56px; color:#0c98e1; font-size:24px; text-align:center;">' +
+                '互联网+将成常态，每一个社会及商业阶段都会有一个</p>' +
+            '<p style="width:90%; border-bottom:2px #333 solid; margin: 0 auto; padding-bottom:56px; color:#0c98e1; font-size:24px; text-align:center;">常态以及发展趋势</p>' +
+            '<p style="font-size:30px;color:#333;margin-top:70px;">' +
+                '从现状来看，“互联网+”处于初级阶段，是个都在热谈但是没有落实的理论阶段。各领域针对互联网都会做一定的论证与探索，但是大部分商家仍旧会处于观望阶段，这需要一个过程。' +
+            '</p>' +
+            '<p style="margin:56px auto 66px; text-align:center;">' +
+                '<strong style="border-bottom:#333 5px solid;padding:0 5px 18px;">探索与实践</strong>' +
+            '</p>' +
+            '<p style="font-size:30px;color:#333;">' +
+                '从探索与实践的层面上，互联网商家会比传统企业主动，毕竟这些商家从诞生开始就不断用“互联网+”去改变更多的行业，他们有足够的经验可循，可以复制改造经验的模式去探索另外的区域，继而不断的融合更多的领域，持续扩大自己的生态。' +
+            '</p>' +
+            '<p style="font-size:30px; color:#333; margin-top:66px;">' +
+                '互联网+真正难以改造的是那些非常传统的行业，但是这不意味着传统企业不做互联网化的尝试。很多传统企业都在过去几年就开始尝试营销的互联网化，多是借助B2B、B2C等电商平台实现。'+
+            '</p>' +
+            '<p style="margin:56px auto 66px; text-align:center">'+
+                '<strong style="border-bottom:#333 5px solid;padding:0 5px 18px;">全名创业时代</strong>'+
+            '</p>' +
+            '<p style="font-size:30px; color:#333;">' +
+                '更多的线下企业还停留在信息推广与宣传的阶段，甚至不会、不敢或者不能尝试网络交易方面的营销，因为他们找不到合适的方案来解决线下渠道与线上渠道的冲突问题。还有一些商家自搭商城，但是成功的不是太多。但是自创品牌，通过电商平台销售经营的服装及零食等商家已经摸索出了一条电商之路。' +
+            '</p>' +
+            '<p>' +
+                '<img src="http://7xj2qd.com2.z0.glb.qiniucdn.com/image2.png">' +
+            '</p>'+
+            '<p style="margin-top:26px; margin-bottom:56px; font-size:26px; color:#666;">' +
+                '全民互联网时代，更多企业在加入创业大潮' +
+            '</p>' +
+            '<p style="font-size:30px; color:#333;">' +
+                '从事“互联网+”服务商的工作，要求每一个人都有整体规划性思路，他们能够根据“互联网+整体解决方案”做事，然后再有一个具体而擅长的领域，譬如运营及技术等，通过不断的向下延伸而匹配到线下的传统企业中。' +
+            '</p>' +
+            '<p style="margin:56px auto 66px; text-align:center">' +
+                '<strong style="border-bottom:#333 5px solid;padding:0 5px 18px;">传统企业的收购与并购</strong>' +
+            '</p>'+
+            '<p style="font-size:30px; color:#333;">' +
+                '互联网企业投资持股传统企业已经屡见不鲜，事实上传统企业投资或者收购互联网企业的案例也不在少数。在以往的传统企业转型研究中，入股与并购是传统企业互联网化最简单快捷的方式。'+
+            '</p>' +
+            '<p style="text-align:center">' +
+                '<img src="../static/img/qrcode.png"/>' +
+            '</p>';
+        var iframeNode = $('<iframe id="webchatpreview" frameborder="0" style="width:100%; height:550px;" src="../moban.html"></iframe>');
+        var head = '<head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="http://www.wxb.com/css/wechat-preview.css"></head>';
+        var body = '<body class="view" contenteditable="true" contenteditable="true">' +
+                        '<div class="rich_media">' +
+                            '<div class="rich_media_inner">' +
+                                '<div class="rich_media_area_primary">' +
+                                    '<h2 class="rich_media_title">漂亮的公众号模板</h2>' +
+                                    '<div class="rich_media_meta_list">' +
+                                        '<em id="post-date" class="rich_media_meta rich_media_meta_text">2015-11-03</em>' +
+                                        '<a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="javascript:void(0);" id="post-user">公众号名称</a>' +
+                                    '</div>' +
+                                    '<div class="rich_media_content">' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                '</body>';
+        var html = head + body;
+        $('#preview .modal-body').append(iframeNode);
+        iframeDoc = iframeNode.get(0).contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(html);
+        iframeDoc.close();
+        $('#preview').on('show.bs.modal', function() {
+            document.getElementById('webchatpreview').contentWindow.document.body.getElementsByClassName('rich_media_content')[0].innerHTML = ue.getContent();
+        });
+    </script>
+</html>
