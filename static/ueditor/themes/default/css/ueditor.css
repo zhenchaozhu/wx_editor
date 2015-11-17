@@ -1901,3 +1901,26 @@ div.edui-box {
 .edui-default  .edui-pastecontainer .edui-button  .edui-state-hover .edui-plaintxticon{
     background-position: -72px -34px;
 }
+
+
+.edui-default .edui-bubble .edui-popup-content {
+    line-height: 24px;
+    padding: 8px;
+    background: rgba(83,71,64,0.8);
+    border-radius: 0;
+    border: 0 none;
+    color: #FFF;
+}
+
+.edui-default .edui-editor {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border: 0 none;
+}
+
+.edui-default .edui-editor-toolbarboxouter {
+    background-image: none;
+    background: transparent;
+    border: 0 none;
+    box-shadow: none;
+}
